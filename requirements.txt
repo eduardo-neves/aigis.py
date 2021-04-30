@@ -1,4 +1,5 @@
 discord.py
 dnspython
+requests
 pymongo
 python-dotenv
