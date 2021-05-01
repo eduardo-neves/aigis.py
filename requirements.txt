@@ -3,3 +3,4 @@ dnspython
 requests
 pymongo
 python-dotenv
+hentai

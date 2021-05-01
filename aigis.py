@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import requests
 import json
 from random import randint
+from hentai import Hentai, Format, Utils
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -164,8 +165,20 @@ async def kek(message):
 
 @bot.command()
 async def nh(message, sauce):
+
+    doujin = Hentai(sauce)
+    
+    if (Hentai.exists(doujin.id) == True):
+        base_url = 'https://nhentai.net/g/'
+        final_url = base_url + sauce + "/"
+        await message.channel.send(final_url)
+    else:
+        await message.channel.send("Esse sauce não existe.")
+
+async def nhr(message):
+    random = Utils.get_random_id()
     base_url = 'https://nhentai.net/g/'
-    final_url = base_url + sauce + "/"
+    final_url = base_url + random + "/"
     await message.channel.send(final_url)
 
 @bot.command()
