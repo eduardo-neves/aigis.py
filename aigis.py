@@ -90,9 +90,9 @@ async def on_message(message):
         await message.add_reaction('😩')
         embedVar = discord.Embed(title='Aigis', description='Comandos +18 disponíveis (ainda em desenvolvimento):', color=0xf274bd)
         embedVar.set_thumbnail(url="https://cdn.discordapp.com/attachments/770948564947304448/771374855333085194/418-WVRNSuH_xb0.jpg")
-        embedVar.add_field(name="nhentai", value="Permite pesquisar um doujin por número", inline=False)
-        embedVar.add_field(name="nhentair", value="Responde com um doujin aleatório", inline=False)
-        embedVar.add_field(name="rule34", value="Traz um NSFW. Aceita tag (use rule34 tags para ver as disponíveis)", inline=False)
+        embedVar.add_field(name="nh", value="Permite pesquisar um doujin do nhentai.net por número", inline=False)
+        embedVar.add_field(name="nhr", value="Responde com um doujin aleatório do nhentai.net", inline=False)
+        embedVar.add_field(name="r34", value="Traz um NSFW. Aceita tag (use rule34 tags para ver as disponíveis)", inline=False)
         embedVar.add_field(name="doll", value="Traz uma bonequinha", inline=False)
         embedVar.add_field(name="Outros",value="Se precisar manda mensagem para o %s." % MYID, inline=False)
         await message.channel.send(embed=embedVar)
@@ -177,7 +177,7 @@ async def kek(message):
         await message.channel.send("Cringe")
 
 @bot.command()
-async def rule34(message, tag="hentai"):
+async def r34(message, tag="hentai"):
     if (tag == "tags"):
         tags = "ass, bdsm, cum, manga, femdom, hentai(tag padrão), masturbation, ero, orgy, yuri, pantsu, glasses, cuckold, blowjob, foot, thighs, vagina, ahegao, uniform, gangbang, tentacles, wallpaper, mobileWallpaper, neko, jahy, nsfwNeko, nsfwMobileWallpaper, zettaiRyouiki, Vein05"
         await message.channel.send(tags)
@@ -189,7 +189,7 @@ async def rule34(message, tag="hentai"):
         await message.channel.send(imagelink)
 
 @bot.command()
-async def nhentai(message, sauce):
+async def nh(message, sauce):
     try:
         doujin = Hentai(sauce)
         if (Hentai.exists(doujin.id) == True):
@@ -200,7 +200,7 @@ async def nhentai(message, sauce):
         await message.channel.send("Esse sauce não existe parça.")
 
 @bot.command()
-async def nhentair(message):
+async def nhr(message):
     random = str(Utils.get_random_id())
     base_url = 'https://nhentai.net/g/'
     final_url = base_url + random + "/"
