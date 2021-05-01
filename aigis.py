@@ -156,6 +156,13 @@ async def doge(message):
     await message.channel.send("O valor do doggo é %s reaus." % dol, tts=True)
 
 @bot.command()
+async def kek(message):
+    if (randint(0,1) > 0):
+        await message.channel.send("Kek")
+    else:
+        await message.channel.send("Cringe")
+
+@bot.command()
 async def nh(message, sauce):
     base_url = 'https://nhentai.net/g/'
     final_url = base_url + sauce + "/"
