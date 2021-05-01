@@ -86,7 +86,7 @@ async def on_message(message):
         await asyncio.sleep(3)
         await message.channel.send(embed=embedVar)
     
-    if message.content == (prefix + 'help+18'):
+    if message.content == (prefix + 'help18'):
         await message.add_reaction('😩')
         embedVar = discord.Embed(title='Aigis', description='Comandos +18 disponíveis (ainda em desenvolvimento):', color=0xf274bd)
         embedVar.set_thumbnail(url="https://cdn.discordapp.com/attachments/770948564947304448/771374855333085194/418-WVRNSuH_xb0.jpg")
@@ -227,7 +227,7 @@ async def f(message):
 
 @bot.event
 async def on_ready():
-    activity = discord.Activity(type=discord.ActivityType.listening, name=prefix + 'help, help+18')
+    activity = discord.Activity(type=discord.ActivityType.listening, name=prefix + 'help, help18')
     await bot.change_presence(activity=activity)
     os.system('cls')
     print(bot.user.name, 'is running (%s)' % bot.user.id)
