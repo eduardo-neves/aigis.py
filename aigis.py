@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 import requests
 import json
 from random import randint
+
 from hentai import Hentai, Format, Utils
+import hmtai
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -82,6 +84,17 @@ async def on_message(message):
         embedVar.add_field(name="Outros",value="Se precisar manda mensagem para o %s." % MYID, inline=False)
         await message.channel.send('Tem nada aqui otário.')
         await asyncio.sleep(3)
+        await message.channel.send(embed=embedVar)
+    
+    if message.content == (prefix + 'help+18'):
+        await message.add_reaction('😩')
+        embedVar = discord.Embed(title='Aigis', description='Comandos +18 disponíveis (ainda em desenvolvimento):', color=0xf274bd)
+        embedVar.set_thumbnail(url="https://cdn.discordapp.com/attachments/770948564947304448/771374855333085194/418-WVRNSuH_xb0.jpg")
+        embedVar.add_field(name="nhentai", value="Permite pesquisar um doujin por número", inline=False)
+        embedVar.add_field(name="nhentair", value="Responde com um doujin aleatório", inline=False)
+        embedVar.add_field(name="rule34", value="Traz um NSFW. Aceita tag (use rule34 tags para ver as disponíveis)", inline=False)
+        embedVar.add_field(name="doll", value="Traz uma bonequinha", inline=False)
+        embedVar.add_field(name="Outros",value="Se precisar manda mensagem para o %s." % MYID, inline=False)
         await message.channel.send(embed=embedVar)
 
     if message.content == (prefix + 'gay'):
@@ -164,6 +177,18 @@ async def kek(message):
         await message.channel.send("Cringe")
 
 @bot.command()
+async def rule34(message, tag="hentai"):
+    if (tag == "tags"):
+        tags = "ass, bdsm, cum, manga, femdom, hentai(tag padrão), masturbation, ero, orgy, yuri, pantsu, glasses, cuckold, blowjob, foot, thighs, vagina, ahegao, uniform, gangbang, tentacles, wallpaper, mobileWallpaper, neko, jahy, nsfwNeko, nsfwMobileWallpaper, zettaiRyouiki, Vein05"
+        await message.channel.send(tags)
+    elif (tag != "hentai"):
+        imagelink = hmtai.useHM('v2', tag)
+        await message.channel.send(imagelink)
+    else:
+        imagelink = hmtai.useHM('v2', tag)
+        await message.channel.send(imagelink)
+
+@bot.command()
 async def nhentai(message, sauce):
     try:
         doujin = Hentai(sauce)
@@ -202,7 +227,7 @@ async def f(message):
 
 @bot.event
 async def on_ready():
-    activity = discord.Activity(type=discord.ActivityType.listening, name=prefix + 'help')
+    activity = discord.Activity(type=discord.ActivityType.listening, name=prefix + 'help, help+18')
     await bot.change_presence(activity=activity)
     os.system('cls')
     print(bot.user.name, 'is running (%s)' % bot.user.id)
