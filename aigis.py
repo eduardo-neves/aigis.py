@@ -167,13 +167,13 @@ async def kek(message):
 async def nh(message, sauce):
 
     doujin = Hentai(sauce)
-    
-    if (Hentai.exists(doujin.id) == True):
-        base_url = 'https://nhentai.net/g/'
-        final_url = base_url + sauce + "/"
-        await message.channel.send(final_url)
-    else:
-        await message.channel.send("Esse sauce não existe.")
+    try:
+        if (Hentai.exists(doujin.id) == True):
+            base_url = 'https://nhentai.net/g/'
+            final_url = base_url + sauce + "/"
+            await message.channel.send(final_url)
+    except:
+        await message.channel.send("Esse sauce não existe parça.")
 
 async def nhr(message):
     random = Utils.get_random_id()
