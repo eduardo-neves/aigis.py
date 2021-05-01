@@ -88,9 +88,9 @@ async def on_message(message):
         await message.channel.send('Não você.', tts=True)
 
     ##Comando para chamar a Hanna de gay
-    if message.content != '':
-        if message.author.id == 277911113985949696:
-            if randint(0,100) == 69:
+    if (message.content != ''):
+        if (message.author.id == 277911113985949696):
+            if (randint(0,100) == 69):
                 await message.channel.send('A Hanna é gay.')
 
     if message.content == (prefix + 'hanna'):
