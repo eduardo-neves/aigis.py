@@ -166,8 +166,9 @@ async def doge(message):
     pedido = requests.get('https://economia.awesomeapi.com.br/all/DOGE-BRL')
     retorno = pedido.json()
     dol = float(retorno['DOGE']['bid'])
-    dol = round(dol, 2)
-    await message.channel.send("O valor do doggo é %s reaus." % dol, tts=True)
+    variacao = float(retorno['DOGE']['pctChange'])
+    dol = round(dol, 3)
+    await message.channel.send("O valor do doggo é %s reaus com variação de %s." % (dol, variacao), tts=False)
 
 @bot.command()
 async def kek(message):
