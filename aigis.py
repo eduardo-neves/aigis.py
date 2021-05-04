@@ -169,6 +169,10 @@ async def doge(message):
     variacao = float(retorno['DOGE']['pctChange'])
     dol = round(dol, 2)
     await message.channel.send("O valor do doggo é %s reaus com variação de %s." % (dol, variacao), tts=False)
+    pedido = ""
+    retorno = ""
+    dol = ""
+    variacao = ""
 
 @bot.command()
 async def kek(message):
