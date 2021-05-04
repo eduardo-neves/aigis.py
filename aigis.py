@@ -167,15 +167,17 @@ async def doge(message):
     retorno = pedido.json()
     dol = float(retorno['DOGE']['bid'])
     variacao = float(retorno['DOGE']['pctChange'])
-    dol = round(dol, 3)
+    dol = round(dol, 2)
     await message.channel.send("O valor do doggo é %s reaus com variação de %s." % (dol, variacao), tts=False)
 
 @bot.command()
 async def kek(message):
     if (randint(0,1) > 0):
-        await message.channel.send("Kek")
+        imageURL = "https://i.kym-cdn.com/photos/images/newsfeed/001/564/945/0cd.png"
+        await message.channel.send(imageURL)
     else:
-        await message.channel.send("Cringe")
+        imageURL = "https://i.kym-cdn.com/photos/images/newsfeed/000/652/412/2f8.png"
+        await message.channel.send(imageURL)
 
 @bot.command()
 async def r34(message, tag="hentai"):
