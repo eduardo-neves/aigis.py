@@ -1,12 +1,13 @@
 import os
 import asyncio
+import json
+from random import randint
+import requests
+
 import discord
 from discord.ext import commands
 import pymongo
 from dotenv import load_dotenv
-import requests
-import json
-from random import randint
 
 from hentai import Hentai, Format, Utils
 import hmtai
@@ -19,9 +20,16 @@ MYID = os.getenv('MYID')
 client = pymongo.MongoClient(ATLAS)
 db = client.quotesAigis
 
+headers = {
+    ...
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache"
+}
+
 prefix = '&'
 bot = discord.Client()
 bot = commands.Bot(command_prefix=prefix)
+activity = discord.Activity(type=discord.ActivityType.listening, name=prefix + 'help, help18')
 bot.remove_command('help')
 
 ##Event listeners below
@@ -163,16 +171,12 @@ async def dol(message):
 
 @bot.command()
 async def doge(message):
-    pedido = requests.get('https://economia.awesomeapi.com.br/all/DOGE-BRL')
+    pedido = requests.get('https://economia.awesomeapi.com.br/all/DOGE-BRL', headers=headers)
     retorno = pedido.json()
     dol = float(retorno['DOGE']['bid'])
     variacao = float(retorno['DOGE']['pctChange'])
     dol = round(dol, 2)
     await message.channel.send("O valor do doggo é %s reaus com variação de %s." % (dol, variacao), tts=False)
-    pedido = ""
-    retorno = ""
-    dol = ""
-    variacao = ""
 
 @bot.command()
 async def kek(message):
@@ -234,13 +238,9 @@ async def f(message):
 
 @bot.event
 async def on_ready():
-    activity = discord.Activity(type=discord.ActivityType.listening, name=prefix + 'help, help18')
     await bot.change_presence(activity=activity)
     os.system('cls')
     print(bot.user.name, 'is running (%s)' % bot.user.id)
     print('---------------------------------------')
-    print("Connected to:")
-    for guild in bot.guilds:
-        print(guild.name, "(%s)" % guild.id)
 
 bot.run(TOKEN)
