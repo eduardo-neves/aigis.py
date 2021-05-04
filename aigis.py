@@ -21,7 +21,6 @@ client = pymongo.MongoClient(ATLAS)
 db = client.quotesAigis
 
 headers = {
-    ...
     "Cache-Control": "no-cache",
     "Pragma": "no-cache"
 }
@@ -175,7 +174,6 @@ async def doge(message):
     retorno = pedido.json()
     dol = float(retorno['DOGE']['bid'])
     variacao = float(retorno['DOGE']['pctChange'])
-    dol = round(dol, 2)
     await message.channel.send("O valor do doggo é %s reaus com variação de %s." % (dol, variacao), tts=False)
 
 @bot.command()
