@@ -120,7 +120,7 @@ async def on_message(message):
         embedVar = discord.Embed(title='Aigis', description='Comandos +18 disponíveis (ainda em desenvolvimento):', color=0xf274bd)
         embedVar.set_thumbnail(url="https://cdn.discordapp.com/attachments/770948564947304448/771374855333085194/418-WVRNSuH_xb0.jpg")
         embedVar.add_field(name="nh", value="Permite pesquisar um doujin do nhentai.net por número", inline=False)
-        embedVar.add_field(name="nhr", value="Responde com um doujin aleatório do nhentai.net (agora suporta tags!)", inline=False)
+        embedVar.add_field(name="nhr", value="Responde com um doujin aleatório do nhentai.net (*agora suporta tags!* Use **%snhr h/-h/help/help** para detalhes)" %prefix, inline=False)
         embedVar.add_field(name="r34", value="Traz um NSFW. Aceita tag (use rule34 tags para ver as disponíveis)", inline=False)
         embedVar.add_field(name="doll", value="Traz uma bonequinha", inline=False)
         embedVar.add_field(name="Outros",value="Se precisar manda mensagem para o %s." % MYID, inline=False)
@@ -164,7 +164,7 @@ async def quotea(message, nome=None, allopc=None):
                 await message.channel.send(output)
     else:
         await message.channel.send('Esse autor não existe, parça. Tente &quotea Autor')
-        await message.channel.send('*Você sabia? Pode puxar todas as frases com o sufixo all (**&quotea Autor all**)*')
+        await message.channel.send('*Você sabia? Pode puxar todas as frases com o sufixo all (**%squotea Autor all**)*' %prefix)
 
 @bot.command()
 async def dol(message):
@@ -227,7 +227,12 @@ async def nhr(message, *tags):
         fTags = ""
         n = 0
         language = "language:english"
+        commandHelp = ""
         for tag in tags:
+            if (tag == "-help") or (tag == "-h") or (tag == "h") or (tag == "help"):
+                commandHelp = "Use quaisquer combinação de tags. Ex: *%snhr yuri pantyhose*\nTambém pode usar - para remover uma tag. Ex: *%snhr glasses -netorare*" %(prefix, prefix)
+                await message.channel.send(commandHelp)
+                break
             #enables multiple language support (to be defined in if statement)
             # if tag == "translated" or tag == "english":
             #     language = "language:" + tag
@@ -236,12 +241,12 @@ async def nhr(message, *tags):
             if query_tags != "":
                 fTags = "tag:" + query_tags
         query = fTags + language
-        print(query)
-
         doujins = Utils.search_by_query(query, sort=Sort.PopularToday)
         selected = randint(0, len(doujins))
         
         for doujin in doujins:
+            if (commandHelp != ""):
+                break
             if (n == selected):
                 base_url = 'https://nhentai.net/g/'
                 final_url = base_url + str(doujin.id) + "/"
